@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript Form Validation</title>
+    <link rel="shortcut icon" type="image/x-icon" href="BITS_Pilani-Logo.svg.png">
+    <link rel="stylesheet" href="style.css">
+<style>
+ body{
+            background-image:url(https://sarthak-arora.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F0c17b8a3-5e91-40b3-b3c5-7fad9a7f4b68%2FUntitled.png?table=block&id=49859998-94f7-412e-9310-d28538707bcb&spaceId=dedb7292-68d7-4a39-82a3-e5f14f225d81&width=2000&userId=&cache=v2);
+            background-size: cover;
+            background-attachment: fixed;
+            color: white;
+            padding: 200px 200px;
+            align-items: center;
+            min-height: 90vh;
+            width: 90vw;}
+body {
+            padding: 10px 50px;
+        }
+
+        .formdesign {
+            font-size: 20px;
+
+        }
+        .innerflexitem{
+                flex-direction: column;
+        }
+
+        .formdesign input {
+            width: 50%;
+            padding: 12px 20px;
+            border: 1px solid blue;
+            margin: 14px;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+
+        .formerror {
+            color: black;
+        }
+
+        .but {
+            border-radius: 9px;
+            width: 100px;
+            height: 50px;
+            font-size: 25px;
+            margin: 22px 20px;
+        }
+        h1{
+            color:yellow;
+            text-align:center;
+            text-decoration: underline;
+            background-color: rgb(19, 27, 138);
+            font-size: 50px;
+        }
+        label{
+            font-size: 25px;}
+        .flexbox-container {
+            border:4px solid white;
+            padding:20px;
+            height:780px;
+            width:1300px 
+        }
+        .flexbox-container{
+            margin:10px;
+            padding:10px;
+        }
+        .formdesign{
+            background-color: rgb(177, 69, 27);
+            padding: 5px;
+            height:100px;
+            
+        }
+        .formdesign input{
+            
+            width: 30%;
+            border: 3px solid black;
+            margin: 20px;
+            border-radius : 4px;
+            font-size: 20px;
+            padding: 10px
+        }
+        .but{
+            background-color: rgb(27, 197, 27);}
+        .but{
+            height:50px;
+            width:150px;   }
+        #gender{
+            display:flex;
+            flex-wrap: wrap;
+            flex-direction:column;
+            
+        }
+        .innerflexitem{
+            margin-left: 1%;
+        }
+        .flexbox-container{
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+            }
+
+
+
+
+
+</style>
+</head>
+
+<body>
+    <h1 class="heading"> 
+        THE FORM FOR THE BITS AUGSD WEBSITE 2.0
+    </h1>
+    <form aciton ="/myaction.php" name="myForm" onsubmit="return validateForm()" method="post">
+    <div class="flexbox-container">
+        <div class="formdesign" id="name">
+            <label>NAME:</label><input type="text" name="fname" placeholder="enter your full name" autocomplete="off" required><b><span class="formerror"> </span></b>
+        </div>
+
+        <div class="formdesign" id="email">
+            <label>EMAIL: </label><input type="email" name="femail"  placeholder="enter your BITS email ID" autocomplete="off" 
+            pattern="f[0-9]{8}@pilani.bits-pilani.ac.in" required><b><span class="formerror"> </span></b>
+        </div>
+
+        <div class="formdesign" id="phone">
+            <label>PHONE:</label></Phone:> <input type="number" name="fphone" placeholder="enter the mobile number" autocomplete="off" required><b><span class="formerror"></span></b>
+        </div>
+
+        <div class="formdesign" id="password">
+            <label>PASSWORD</label> <input type="password" name="fpass" placeholder="enter the password" autocomplete="off" required><b><span class="formerror"></span></b>
+        </div>
+        <div class="formdesign" id="s_ID">
+            <label>STUDENT ID:</label> <input type="text" name="fs_ID" placeholder="2021YYPSXXXXP" autocomplete="off" 
+            pattern="[0-9]{4}[A-Za-z][0-9][A-Za-z]{2}[0-9]{4}[a-zA-Z]" required><b><span class="formerror"></span></b>
+        </div>
+
+        
+        <div class="formdesign" id="gender">
+            <label>
+                GENDER
+            </label>
+        <div class="innerflexitem" id=flex_male><input type="radio" name="gender" required>
+            Male
+        </div>
+        <div class="innerflexitem" id="flex_female"><input type="radio" name="gender">
+            Female
+        </div>
+        <div class="innerflexitem" id="flex_others">
+            <input type="radio" name="gender">
+            Others
+        </div>
+        <b>
+            <span class="formerror">
+                
+            </span>
+        </b>
+    </div>
+    <div class="formdesign">
+       <center><a href="success.html"><input class="but" type="submit" value="SUBMIT"></a></center>
+    </div>
+    </div>
+
+    </form>
+</body>
+<script>function clearErrors(){
+
+    errors = document.getElementsByClassName('formerror');
+    for(let item of errors)
+    {
+        item.innerHTML = "";
+    }
+
+
+}
+function seterror(id, error){
+    
+    element = document.getElementById(id);
+    element.getElementsByClassName('formerror')[0].innerHTML = error;
+
+}
+
+function validateForm(){
+    var returnval = true;
+    clearErrors();
+
+    
+    var name = document.forms['myForm']["fname"].value;
+    if (name.length<5){
+        seterror("name", "*Length of name is too short");
+        returnval = false;
+    }
+
+    if (name.length == 0){
+        seterror("name", "*Length of name cannot be zero!");
+        returnval = false;
+    }
+
+    var email = document.forms['myForm']["femail"].value;
+    if (email.length>35){
+        seterror("email", "*Email length is too long");
+        returnval = false;}
+    /*const regex = /f^[0-9]{8}@pilani.bits-pilani.ac.in/;
+    let str = email.value;
+    if(regex.test(str)){
+        seterror("email", "*Email is not satisfying the given condition");
+        returnval = false;
+        
+
+    }
+*/
+    var phone = document.forms['myForm']["fphone"].value;
+    if (phone.length != 10){
+        seterror("phone", "*Phone number should be of 10 digits!");
+        returnval = false;
+    }
+
+    var password = document.forms['myForm']["fpass"].value;
+    if (password.length < 6){
+        seterror("password", "*Password should be atleast 7 characters long!");
+        console.log(checked)
+        returnval = false;
+    }
+    /*var student = document.forms['myForm']["fs_ID"].value;
+    const reg = /[0-9]{4}^[A-Za-z][0-9][A-Za-z]{2}[0-9]{4}[a-zA-Z]/;
+    let st=student.value;
+    if (reg.test(st)){
+        seterror("s_ID", "*ID is not satisfying the given condition");
+        console.log(checked)
+        returnval = false;
+
+    }
+    */
+    /*the regex I have applied through pattern method I tried through java script but it was not working I have written it in comments at the end please tell the error so tht I do it correct from next time*/
+    /*I also attached a file success.html it was loading earlier but I don't know why it is not getting loaded now*/
+
+    return returnval;
+}
+</script>
+
+</html>
